@@ -1,0 +1,97 @@
+[gd_scene load_steps=8 format=3 uid="uid://duhhk823tlsl"]
+
+[ext_resource type="Script" path="res://code/cols.scale.gd" id="1_a8mmw"]
+[ext_resource type="FontFile" uid="uid://bbyvcvft3iw1n" path="res://assets/AlegreyaSans-Regular.ttf" id="2_2pwtu"]
+[ext_resource type="Script" path="res://code/imagerect.scale.gd" id="2_4pohs"]
+[ext_resource type="Script" path="res://code/parse_script.gd" id="2_8lfqj"]
+[ext_resource type="Script" path="res://code/load_script.gd" id="5_0h2bw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7sun"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+draw_center = false
+border_width_right = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7n6sd"]
+
+[node name="main" type="Node2D"]
+
+[node name="screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1200.0
+offset_bottom = 600.0
+
+[node name="cols" type="HBoxContainer" parent="screen"]
+layout_mode = 0
+offset_right = 709.0
+offset_bottom = 628.0
+script = ExtResource("1_a8mmw")
+
+[node name="text" type="VBoxContainer" parent="screen/cols"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="script" type="TextEdit" parent="screen/cols/text"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.431373, 0.431373, 0.431373, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/current_line_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_2pwtu")
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_p7sun")
+placeholder_text = "Enter shading script"
+
+[node name="spacer" type="Control" parent="screen/cols/text"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+
+[node name="himage" type="HBoxContainer" parent="screen/cols"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="spacer1" type="Control" parent="screen/cols/himage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="vimage" type="VBoxContainer" parent="screen/cols/himage"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 100.0
+
+[node name="spacer1" type="Control" parent="screen/cols/himage/vimage"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="imagerect" type="ColorRect" parent="screen/cols/himage/vimage"]
+material = SubResource("ShaderMaterial_7n6sd")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 100.0
+script = ExtResource("2_4pohs")
+
+[node name="spacer3" type="Control" parent="screen/cols/himage/vimage"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="spacer2" type="Control" parent="screen/cols/himage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="parse_script" type="Node2D" parent="."]
+script = ExtResource("2_8lfqj")
+
+[node name="load_script" type="Node2D" parent="."]
+script = ExtResource("5_0h2bw")
+
+[connection signal="text_changed" from="screen/cols/text/script" to="parse_script" method="_on_script_text_changed"]
