@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://vjptp8piaqpn"]
+
+[ext_resource type="Shader" path="res://code/imagerect.gdshader" id="1_spxus"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nt4xm"]
+viewport_path = NodePath("screen/cols/himage/vimage/imagerect/viewport")
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_spxus")
+shader_parameter/center = null
+shader_parameter/zoom = null
+shader_parameter/viewport = SubResource("ViewportTexture_nt4xm")

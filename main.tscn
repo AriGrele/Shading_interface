@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://duhhk823tlsl"]
+[gd_scene load_steps=13 format=3 uid="uid://duhhk823tlsl"]
 
 [ext_resource type="Script" path="res://code/cols.scale.gd" id="1_a8mmw"]
 [ext_resource type="FontFile" uid="uid://bbyvcvft3iw1n" path="res://assets/AlegreyaSans-Regular.ttf" id="2_2pwtu"]
 [ext_resource type="Script" path="res://code/imagerect.scale.gd" id="2_4pohs"]
 [ext_resource type="Script" path="res://code/parse_script.gd" id="2_8lfqj"]
+[ext_resource type="Material" uid="uid://vjptp8piaqpn" path="res://code/imagerect.tres" id="3_hpadw"]
+[ext_resource type="Script" path="res://code/scripthighlight.gd" id="3_phq1v"]
 [ext_resource type="Script" path="res://code/load_script.gd" id="5_0h2bw"]
+[ext_resource type="Material" uid="uid://dtnjm0tgpmgf7" path="res://code/shaderrect.tres" id="5_ll1yt"]
+[ext_resource type="Script" path="res://code/parse_parms.gd" id="7_spbgv"]
+[ext_resource type="Script" path="res://code/pan_zoom.gd" id="9_qbejb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7sun"]
 content_margin_left = 5.0
@@ -15,7 +20,7 @@ draw_center = false
 border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7n6sd"]
+[sub_resource type="CodeHighlighter" id="CodeHighlighter_q0mbx"]
 
 [node name="main" type="Node2D"]
 
@@ -50,6 +55,8 @@ theme_override_fonts/font = ExtResource("2_2pwtu")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_p7sun")
 placeholder_text = "Enter shading script"
+syntax_highlighter = SubResource("CodeHighlighter_q0mbx")
+script = ExtResource("3_phq1v")
 
 [node name="spacer" type="Control" parent="screen/cols/text"]
 custom_minimum_size = Vector2(0, 5)
@@ -73,12 +80,21 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="imagerect" type="ColorRect" parent="screen/cols/himage/vimage"]
-material = SubResource("ShaderMaterial_7n6sd")
+material = ExtResource("3_hpadw")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 100.0
 script = ExtResource("2_4pohs")
+
+[node name="viewport" type="SubViewport" parent="screen/cols/himage/vimage/imagerect"]
+disable_3d = true
+size = Vector2i(2, 2)
+
+[node name="shaderrect" type="ColorRect" parent="screen/cols/himage/vimage/imagerect/viewport"]
+material = ExtResource("5_ll1yt")
+offset_right = 20.0
+offset_bottom = 20.0
 
 [node name="spacer3" type="Control" parent="screen/cols/himage/vimage"]
 layout_mode = 2
@@ -91,7 +107,15 @@ size_flags_horizontal = 3
 [node name="parse_script" type="Node2D" parent="."]
 script = ExtResource("2_8lfqj")
 
+[node name="parse_parms" type="Node2D" parent="."]
+script = ExtResource("7_spbgv")
+
 [node name="load_script" type="Node2D" parent="."]
 script = ExtResource("5_0h2bw")
 
+[node name="pan_zoom" type="Node2D" parent="."]
+script = ExtResource("9_qbejb")
+
 [connection signal="text_changed" from="screen/cols/text/script" to="parse_script" method="_on_script_text_changed"]
+[connection signal="mouse_entered" from="screen/cols/himage/vimage/imagerect" to="pan_zoom" method="_on_imagerect_mouse_entered"]
+[connection signal="mouse_exited" from="screen/cols/himage/vimage/imagerect" to="pan_zoom" method="_on_imagerect_mouse_exited"]

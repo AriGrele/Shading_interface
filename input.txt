@@ -1,3 +1,5 @@
+mode:edit
+
 shader_type canvas_item;
 
-void fragment(){COLOR.rgb=vec3(UV.x,sin(TIME),UV.y);}
+void fragment(){}

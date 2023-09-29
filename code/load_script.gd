@@ -1,9 +1,15 @@
 extends Node2D
 
+func save(text,path):
+	var file = FileAccess.open(path,FileAccess.WRITE)
+	file.store_string(text)
+
 func load_txt(path):
 	var file=FileAccess.open(path,FileAccess.READ)
-	var content=file.get_as_text()
-	return(content)
+	if file:
+		var content=file.get_as_text()
+		return(content)
+	return('')
 
 func _ready():
 	var path='res://input.txt'
