@@ -25,6 +25,10 @@ func _on_script_text_changed():
 	var shader_script = 'shader_type'+''.join(value)
 	var parms         = {}
 	
+	if shader_script == 'shader_type':shader_script=''
+	
+	print('lklk ',shader_script)
+	
 	shader.set_code(shader_script)
 	image.set_shader(shader)
 	

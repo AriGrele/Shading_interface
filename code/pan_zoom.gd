@@ -36,7 +36,7 @@ func _on_imagerect_mouse_entered():
 func _on_imagerect_mouse_exited():
 	selected=false
 
-func _process(delta):
+func _process(_delta):
 	var dim=dimfull*zoom
 	var borderx = Vector2(dim.x/2.,1-dim.x/2.)
 	var bordery = Vector2(dim.y/2.,1-dim.y/2.)

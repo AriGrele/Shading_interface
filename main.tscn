@@ -21,6 +21,8 @@ border_width_right = 1
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_q0mbx"]
+number_color = Color(0.313726, 0.596078, 0.454902, 1)
+function_color = Color(0.0901961, 0.623529, 0.878431, 1)
 
 [node name="main" type="Node2D"]
 
