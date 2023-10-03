@@ -1,4 +1,5 @@
 res://main.tscn
 res://code/imagerect.gdshader
 res://code/imagerect.tres
-res://code/screen.scale.gd
+res://code/compute.gd
+res://code/parse_script.gd

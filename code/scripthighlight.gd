@@ -61,7 +61,13 @@ func _ready():
 		'UV',
 		'COLOR',
 		'VERTEX',
-		'TIME']}
+		'TIME',
+		'layout',
+		'restrict',
+		'buffer'],
+	'#808080':[
+		'#[compute]',
+		'#version 450']}
 		
 	var regions={'#808080':['//']}
 		

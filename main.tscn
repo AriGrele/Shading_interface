@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duhhk823tlsl"]
+[gd_scene load_steps=16 format=3 uid="uid://duhhk823tlsl"]
 
 [ext_resource type="Script" path="res://code/cols.scale.gd" id="1_a8mmw"]
 [ext_resource type="Script" path="res://code/screen.scale.gd" id="1_kqbif"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://code/FPS.gd" id="7_jybdq"]
 [ext_resource type="Script" path="res://code/parse_parms.gd" id="7_spbgv"]
 [ext_resource type="Script" path="res://code/pan_zoom.gd" id="9_qbejb"]
+[ext_resource type="Script" path="res://code/compute.gd" id="13_vh0cf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7sun"]
 content_margin_left = 5.0
@@ -132,6 +133,9 @@ script = ExtResource("5_0h2bw")
 
 [node name="pan_zoom" type="Node2D" parent="."]
 script = ExtResource("9_qbejb")
+
+[node name="compute" type="Node2D" parent="."]
+script = ExtResource("13_vh0cf")
 
 [connection signal="text_changed" from="screen/cols/text/script" to="parse_script" method="_on_script_text_changed"]
 [connection signal="mouse_entered" from="screen/cols/himage/vimage/imagerect" to="pan_zoom" method="_on_imagerect_mouse_entered"]
