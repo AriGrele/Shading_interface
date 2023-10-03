@@ -52,7 +52,7 @@ tif2png=function(tif,dst){
     
     cat('*\tGrabbing unique values\n')
     n=unique(abs(as.numeric(img)))
-    dp=max(sapply(n,decimalplaces))|>
+    dp=max(c(sapply(n,decimalplaces),1))|>
       c(decimalplaces(floor(max(n))/(1e5)),255)|>
       min()
     
@@ -87,11 +87,14 @@ tif2png=function(tif,dst){
       cat('No data\n')
       return()}
     
+    #dir.create(paste0(dst,'/',file),showWarnings=F)
     png::writePNG(output[,,],paste0(dst,'/',file,'_',index,'.png'))
     rm(img)
     gc()
     cat('*\tTime:',Sys.time()-t,'\n')}}
 
-t=Sys.time()
-tif2png('C:/Users/Ari/Downloads/wc2.1_30s_bio/wc2.1_30s_bio_1.tif','C:/Users/Ari/Desktop')
-Sys.time()-t
+files=paste0('C:/Users/Ari/Downloads/wc2.1_10m_bio/',
+  list.files('C:/USers/Ari/Downloads/wc2.1_10m_bio'))
+
+for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim')}
+
