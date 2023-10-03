@@ -96,5 +96,16 @@ tif2png=function(tif,dst){
 files=paste0('C:/Users/Ari/Downloads/wc2.1_10m_bio/',
   list.files('C:/USers/Ari/Downloads/wc2.1_10m_bio'))
 
-for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim')}
+for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim10m')}
+
+coordinate_data=function(file,coords){##TO DO implement as compute shader in glsl
+  img=png::readPNG(file)*255
+  value=img[,,1]+img[,,2]*256+img[,,3]*256*256+(img[,,4]-(255/2))*2
+  lapply(coords,\(coord){
+    x=(coord[2]+180)/360*ncol(value)
+    y=(90-coord[1])/180*nrow(value)
+    data.frame('file'=file,'long'=coord[2],'lat'=coord[1],'value'=value[y,x])})|>
+    do.call(rbind,args=_)}
+
+coordinate_data('C:/Users/Ari/Desktop/bioclim10m/wc2.1_10m_bio_1_1.png',list(c(0,0),c(39.5299,119.81),c(43,116)))
 
