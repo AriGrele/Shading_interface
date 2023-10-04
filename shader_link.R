@@ -52,15 +52,13 @@ tif2png=function(tif,dst){
     
     cat('*\tGrabbing unique values\n')
     n=unique(abs(as.numeric(img)))
-    dp=max(c(sapply(n,decimalplaces),1))|>
-      c(decimalplaces(floor(max(n))/(1e5)),255)|>
-      min()
+    dp=min(c(floor(log10(256^3/max(n))),128))
     
-    img=floor(img*dp)
+    img=floor(img*(10^dp))
     n=unique(abs(as.numeric(img)))|>
       c(0)
     
-    cat('*\tBuilding lookup table\n')
+    cat('*\tBuilding lookup table with scale of',dp,'\n')
     lookup=
       sapply(n,dec2bin)|>
       paste(collapse='')|>
@@ -87,16 +85,16 @@ tif2png=function(tif,dst){
       cat('No data\n')
       return()}
     
-    #dir.create(paste0(dst,'/',file),showWarnings=F)
-    png::writePNG(output[,,],paste0(dst,'/',file,'_',index,'.png'))
+    dir.create(paste0(dst,'/',file),showWarnings=F)
+    png::writePNG(output[,,],paste0(dst,'/',file,'/',file,'_',index,'.png'))
     rm(img)
     gc()
     cat('*\tTime:',Sys.time()-t,'\n')}}
 
-files=paste0('C:/Users/Ari/Downloads/wc2.1_10m_bio/',
-  list.files('C:/USers/Ari/Downloads/wc2.1_10m_bio'))
+files=paste0('C:/Users/Ari/Downloads/wc2.1_30s_bio/',
+  list.files('C:/USers/Ari/Downloads/wc2.1_30s_bio'))
 
-for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim10m')}
+for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim')}
 
 coordinate_data=function(file,coords){##TO DO implement as compute shader in glsl
   img=png::readPNG(file)*255
