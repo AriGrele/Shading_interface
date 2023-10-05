@@ -105,5 +105,8 @@ coordinate_data=function(file,coords){##TO DO implement as compute shader in gls
     data.frame('file'=file,'long'=coord[2],'lat'=coord[1],'value'=value[y,x])})|>
     do.call(rbind,args=_)}
 
-coordinate_data('C:/Users/Ari/Desktop/bioclim10m/wc2.1_10m_bio_1_1.png',list(c(0,0),c(39.5299,119.81),c(43,116)))
+pairs=lapply(1:1000,\(x)c(runif(1,-90,90),runif(1,-180,180)))
 
+t=Sys.time()
+a=coordinate_data('C:/Users/Ari/Desktop/bioclim/wc2.1_30s_bio_1/wc2.1_30s_bio_1_6.png',pairs)
+Sys.time()-t

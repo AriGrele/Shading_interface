@@ -22,13 +22,14 @@ func _ready():
 	shader=Shader.new()
 
 func _on_script_text_changed():
-	
+	print('updated')
 	var value         = Array(input.get_text().split('shader_type'))
 	var options       = value.pop_at(0)
 	var shader_script = 'shader_type'+''.join(value)
 	var parms         = {}
 	
 	if '#[compute]\n#version 450' in options:
+		print(options)
 		shader_script=''
 		right.hide()
 		compute.emit(options)

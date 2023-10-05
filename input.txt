@@ -1,5 +1,37 @@
 mode:edit
+input:{"set":0,"binding":[0,1,2],"type":"sampler2D","value":"C:/Users/Ari/Desktop/bioclim/wc2.1_30s_bio_1/wc2.1_30s_bio_1_1.png"}
+cx:{"set":0,"binding":3,"type":"float32","value":[7182.0,0.0]}
+cy:{"set":0,"binding":4,"type":"float32","value":[29.0,0.0]}
 
-shader_type canvas_item;
+#[compute]
+#version 450
 
-void fragment(){}
+// Invocations in the (x, y, z) dimension
+layout(local_size_x = 2, local_size_y = 1, local_size_z = 1) in;
+ 
+// Input Heightmap texture
+layout(set = 0, binding = 0) uniform sampler2D heightmap;
+
+// Texture size info
+layout(set = 0, binding = 2, std430) restrict buffer SizeDataBuffer {
+  int width;
+  int height;
+}
+size_data;
+
+// A binding to the buffer we create in our script
+layout(set = 0, binding = 3, std430) restrict buffer MyDataBufferx {
+    float x[];
+}
+coordx;
+
+layout(set = 0, binding = 4, std430) restrict buffer MyDataBuffery {
+    float y[];
+}
+coordy;
+    
+void main() {
+    vec2 pos = vec2(coordx.x[gl_GlobalInvocationID.x],coordy.y[gl_GlobalInvocationID.x]);
+    vec4 color = texture(heightmap, pos);
+    coordx.x[gl_GlobalInvocationID.x] = float(color[0]);
+}

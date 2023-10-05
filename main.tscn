@@ -122,20 +122,20 @@ size_flags_vertical = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 script = ExtResource("7_jybdq")
 
+[node name="compute" type="Node2D" parent="."]
+script = ExtResource("13_vh0cf")
+
 [node name="parse_script" type="Node2D" parent="."]
 script = ExtResource("2_8lfqj")
 
 [node name="parse_parms" type="Node2D" parent="."]
 script = ExtResource("7_spbgv")
 
-[node name="load_script" type="Node2D" parent="."]
-script = ExtResource("5_0h2bw")
-
 [node name="pan_zoom" type="Node2D" parent="."]
 script = ExtResource("9_qbejb")
 
-[node name="compute" type="Node2D" parent="."]
-script = ExtResource("13_vh0cf")
+[node name="load_script" type="Node2D" parent="."]
+script = ExtResource("5_0h2bw")
 
 [connection signal="text_changed" from="screen/cols/text/script" to="parse_script" method="_on_script_text_changed"]
 [connection signal="mouse_entered" from="screen/cols/himage/vimage/imagerect" to="pan_zoom" method="_on_imagerect_mouse_entered"]
