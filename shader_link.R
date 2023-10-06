@@ -91,22 +91,57 @@ tif2png=function(tif,dst){
     gc()
     cat('*\tTime:',Sys.time()-t,'\n')}}
 
-files=paste0('C:/Users/Ari/Downloads/wc2.1_30s_bio/',
-  list.files('C:/USers/Ari/Downloads/wc2.1_30s_bio'))
-
-for(file in files){tif2png(file,'C:/Users/Ari/Desktop/bioclim')}
-
-coordinate_data=function(file,coords){##TO DO implement as compute shader in glsl
-  img=png::readPNG(file)*255
-  value=img[,,1]+img[,,2]*256+img[,,3]*256*256+(img[,,4]-(255/2))*2
-  lapply(coords,\(coord){
-    x=(coord[2]+180)/360*ncol(value)
-    y=(90-coord[1])/180*nrow(value)
-    data.frame('file'=file,'long'=coord[2],'lat'=coord[1],'value'=value[y,x])})|>
-    do.call(rbind,args=_)}
-
-pairs=lapply(1:1000,\(x)c(runif(1,-90,90),runif(1,-180,180)))
-
-t=Sys.time()
-a=coordinate_data('C:/Users/Ari/Desktop/bioclim/wc2.1_30s_bio_1/wc2.1_30s_bio_1_6.png',pairs)
-Sys.time()-t
+coordinate_data=(\(path){
+  path
+  return(function(file,coords){
+    if(!file.exists(file)){
+      cat('File does not exist\n')
+      return()}
+    
+    src=paste0(path,'/compute_output.txt')
+    if(file.exists(src)){file.remove(src)}
+    
+    
+    coords=paste0('[',sapply(coords,\(pair)paste0('[',pair[1],',',pair[2],']'))|>
+                    paste(collapse=','),']')
+    
+    script=glue::glue('
+    mode:save
+    binding:2
+    x:16000
+    y:16000
+    input: {{"set":0,"binding":[0,1,2],"type":"sampler2D","value":"{file}"}}
+    coords:{{"set":0,"binding":3,"type":"vec2","value":{coords}}}
+    
+    #[compute]
+    #version 450
+    
+    layout(local_size_x = 2, local_size_y = 1, local_size_z = 1) in; //in x, y dimension
+     
+    
+    layout(set = 0, binding = 0) uniform sampler2D heightmap; //Input texture
+    
+    
+    layout(set = 0, binding = 2, std430) restrict buffer SizeDataBuffer{{ // Texture size info
+      int width;
+      int height;}}
+    size_data;
+    
+    layout(set = 0, binding = 3, std430) restrict buffer MyDataBufferx{{ //Input coordinates
+        vec2 data[];}}
+    coords;
+         
+    void main(){{
+        float x    = (coords.data[gl_GlobalInvocationID.x].x+180.0)/360.0*float(size_data.width);
+        float y    = (90.0-coords.data[gl_GlobalInvocationID.x].y)/180.0*float(size_data.height);
+        vec2 pos   = vec2(x,y);
+    
+        vec4 color = texture(heightmap,pos);
+        coords.data[gl_GlobalInvocationID.x].x = float(color[0]);}}')
+    
+    shader(script)
+    
+    while(!file.exists(src)){Sys.sleep(.1)}
+    output=read.table(src)
+    return(output)})
+  })(funr::get_script_path())

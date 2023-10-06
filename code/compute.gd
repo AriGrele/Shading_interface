@@ -1,28 +1,28 @@
 extends Node2D
 
 var parse
+var binding
 var inputs={}
 var textures={}
+var types={}
 
 var functions = preload("res://code/load_script.gd").new()
 
 func run_compute(compute_script):
+	print(compute_script)
 	var rd := RenderingServer.create_local_rendering_device()
 	
 	var shader_src := RDShaderSource.new() 
 	shader_src.set_stage_source(RenderingDevice.SHADER_STAGE_COMPUTE,compute_script.replace('#[compute]','')) #setting compute shader specifically, so need to remove compute header
-	print(shader_src)
-	print(shader_src.get_stage_source(RenderingDevice.SHADER_STAGE_COMPUTE))
+
 	var shader_spirv := rd.shader_compile_spirv_from_source(shader_src)
 	var shader       := rd.shader_create_from_spirv(shader_spirv)
-	print(shader_spirv)
-	print(shader)
 
-	
 	# Prepare our data. We use floats in the shader, so we need 32 bit.
 	var uniforms={}
 	var buffers=[]
 	for input in inputs:
+		types[str(inputs[input]['binding'])]=inputs[input]['type']
 		
 		if not uniforms.has(inputs[input]['set']):uniforms[inputs[input]['set']]=[]
 		
@@ -33,6 +33,11 @@ func run_compute(compute_script):
 			'float32':   item = PackedFloat32Array(inputs[input]['value'])
 			'int64':     item = PackedInt64Array(inputs[input]['value'])
 			'float64':   item = PackedFloat64Array(inputs[input]['value'])
+			'vec2':      
+				item=[]
+				for value in inputs[input]['value']:
+					item.append(Vector2(value[0],value[1]))
+				item = PackedVector2Array(item)
 			'sampler2D':
 				if not textures.has(item):
 					textures[inputs[input]['value']] = parse.load_image(inputs[input]['value'])
@@ -41,14 +46,14 @@ func run_compute(compute_script):
 				print('Type not supported')
 				item = PackedInt32Array([])
 		
+		print(item)
 		if inputs[input]['type']=='sampler2D':
-			print(item)
+			5
 			var img     = item.get_image()
 			var img_pba = img.get_data()
 			var width   = item.get_width()
 			var height  = item.get_height()
 
-			print(width,' ',height)
 			var fmt        = RDTextureFormat.new()
 			fmt.width      = width
 			fmt.height     = height
@@ -114,7 +119,7 @@ func run_compute(compute_script):
 	rd.compute_list_bind_compute_pipeline(compute_list, pipeline)
 	
 	var uniform_sets={}
-	print('uniforms: ',uniforms)
+	
 	for set in uniforms:
 		uniform_sets[set] = rd.uniform_set_create(uniforms[set],shader,set) 
 		rd.compute_list_bind_uniform_set(compute_list,uniform_sets[set],set)
@@ -127,9 +132,19 @@ func run_compute(compute_script):
 	rd.sync()
 
 	# Read back the data from the buffer
-	var output_bytes := rd.buffer_get_data(buffers[2])
-	var output       := output_bytes.to_float32_array()
-	print(output)
+	if binding<len(buffers):
+		var output_bytes := rd.buffer_get_data(buffers[binding])
+		var output       := output_bytes.to_float32_array()
+		
+		var save_txt      = []
+		if types[str(binding+1)] == 'vec2':
+			for i in range(len(output)/2):
+				save_txt.append(str(output[(i*2)],' ',output[(i*2)+1]))
+		else:
+			for out in output:save_txt.append(str(out))
+		
+		print('Saving: ',save_txt)
+		functions.save('\n'.join(save_txt),'compute_output.txt')
 
 func parse_compute(text):
 	print('compute')
@@ -141,9 +156,11 @@ func parse_compute(text):
 		var pair=Array(option.split(':'))
 
 		if len(pair)>1:
+			print(pair)
 			var types=pair.pop_at(0)
 			var item=JSON.parse_string(':'.join(pair))
-			if item:
+			print(item)
+			if item and typeof(item)==TYPE_DICTIONARY:
 				if item.has('set') and item.has('binding') and item.has('value') and item.has('type'):
 					inputs[types]=item
 	

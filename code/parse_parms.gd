@@ -4,6 +4,7 @@ var parse_script
 var viewport
 var shaderrect
 var imagerect
+var compute
 
 var input
 
@@ -24,7 +25,8 @@ func parse(parms):
 		'crop_top':'1',
 		'load':'.',
 		'save':'.',
-		'save_image':'image.png'}
+		'save_image':'image.png',
+		'binding':'1'}
 	
 	for parm in default:
 		if parm in parms:pass
@@ -36,6 +38,9 @@ func parse(parms):
 	var crop_right  = float(parms['crop_right'])-float(parms['crop_left'])
 	var crop_top    = float(parms['crop_top'])
 	var crop_bottom = float(parms['crop_bottom'])
+	compute.binding = int(parms['binding'])
+	
+	print(int(parms['binding']))
 	
 	viewport.set_size(Vector2(x,y))
 	shaderrect.set_size(Vector2(x,y))
@@ -70,6 +75,7 @@ func parse(parms):
 		get_tree().quit()
 	
 func _ready():
+	compute=get_node('../compute')
 	input        = get_node('../screen/cols/text/script')
 	parse_script = get_node('../parse_script')
 	imagerect    = get_node('../screen/cols/himage/vimage/imagerect')

@@ -28,13 +28,6 @@ func _on_script_text_changed():
 	var shader_script = 'shader_type'+''.join(value)
 	var parms         = {}
 	
-	if '#[compute]\n#version 450' in options:
-		print(options)
-		shader_script=''
-		right.hide()
-		compute.emit(options)
-	else:right.show()
-	
 	if shader_script == 'shader_type':shader_script=''
 	
 	shader.set_code(shader_script)
@@ -61,4 +54,10 @@ func _on_script_text_changed():
 			else:parms[types]=item
 				
 	parameters.emit(parms)
+	
+	if '#[compute]\n#version 450' in options:
+		shader_script=''
+		right.hide()
+		compute.emit(options)
+	else:right.show()
 
