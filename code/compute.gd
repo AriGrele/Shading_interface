@@ -46,7 +46,7 @@ func run_compute(compute_script):
 				print('Type not supported')
 				item = PackedInt32Array([])
 		
-		print(item)
+		#print(item)
 		if inputs[input]['type']=='sampler2D':
 			5
 			var img     = item.get_image()
@@ -143,7 +143,7 @@ func run_compute(compute_script):
 		else:
 			for out in output:save_txt.append(str(out))
 		
-		print('Saving: ',save_txt)
+		print('Saving')
 		functions.save('\n'.join(save_txt),'compute_output.txt')
 
 func parse_compute(text):
