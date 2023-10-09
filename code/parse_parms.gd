@@ -72,7 +72,9 @@ func parse(parms):
 			if '.png' in parms['save_image']:
 				texture.save_png(parms['save_image'])
 			
-		get_tree().quit()
+		parse_script.mode='save'
+	else:
+		parse_script.mode=parms['mode']
 	
 func _ready():
 	compute=get_node('../compute')

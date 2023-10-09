@@ -1,5 +1,6 @@
 extends Node2D
 
+var mode
 var shader
 var input
 var image
@@ -20,44 +21,55 @@ func _ready():
 	image=right.get_node('vimage/imagerect/viewport/shaderrect').material
 	
 	shader=Shader.new()
+	
+	mode='save'
 
 func _on_script_text_changed():
 	print('updated')
-	var value         = Array(input.get_text().split('shader_type'))
-	var options       = value.pop_at(0)
-	var shader_script = 'shader_type'+''.join(value)
-	var parms         = {}
+	var inputs=Array(input.get_text().split('-->'))
 	
-	if shader_script == 'shader_type':shader_script=''
-	
-	shader.set_code(shader_script)
-	image.set_shader(shader)
-	
-	for option in options.split('\n'):
-		var pair=Array(option.split(':'))
+	for text in inputs:
+		await RenderingServer.frame_post_draw
+		
+		var value         = Array(text.split('shader_type'))
+		var options       = value.pop_at(0)
+		var shader_script = 'shader_type'+''.join(value)
+		var parms         = {}
+		
+		if shader_script == 'shader_type':shader_script=''
+		
+		shader.set_code(shader_script)
+		image.set_shader(shader)
+		
+		for option in options.split('\n'):
+			var pair=Array(option.split(':'))
 
-		if len(pair)>1:
-			var types=pair.pop_at(0)
-			var item=':'.join(pair)
-			
-			if ' ' in types:
-				pair=Array(types.split(' '))
-				var type=pair.pop_at(0)
-				var Name=' '.join(pair)
+			if len(pair)>1:
+				var types=pair.pop_at(0)
+				var item=':'.join(pair)
 				
-				if type=='sampler2D':
-					if not textures.has(item):
-						textures[item]=load_image(item)
-					item=textures[item]
+				if ' ' in types:
+					pair=Array(types.split(' '))
+					var type=pair.pop_at(0)
+					var Name=' '.join(pair)
+					
+					if type=='sampler2D':
+						if not textures.has(item):
+							textures[item]=load_image(item)
+						item=textures[item]
 
-				image.set_shader_parameter(Name,item)
-			else:parms[types]=item
-				
-	parameters.emit(parms)
-	
-	if '#[compute]\n#version 450' in options:
-		shader_script=''
-		right.hide()
-		compute.emit(options)
-	else:right.show()
+					image.set_shader_parameter(Name,item)
+				else:parms[types]=item
+					
+		parameters.emit(parms)
+		
+		if '#[compute]\n#version 450' in options:
+			shader_script=''
+			right.hide()
+			compute.emit(options)
+		else:right.show()
+
+	if mode=='save':
+		await RenderingServer.frame_post_draw
+		get_tree().quit()
 

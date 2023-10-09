@@ -1,0 +1,52 @@
+mode:save
+x:8000
+y:8000
+crop_right:.75
+crop_left:.25
+crop_bottom:.5
+save_image:temp_dist.png
+sampler2D img:C:/Users/Ari/Desktop/ggsf.png
+
+shader_type canvas_item;
+
+uniform sampler2D img;
+
+const float n=32000.;
+
+void fragment(){	
+	float dist=n;
+	float Y=UV.y*16000.;
+
+	for(float y=0.;y<=n;y++){
+		float v=y/n;
+		float d=abs(Y-v*16000.);
+		if(v>UV.y && d>dist){break;}
+		vec4 pixel=texture(img,vec2(UV.x,v));
+		dist=min(dist,d+pixel.r*n*2.);}
+
+	COLOR.rgb=floor(vec3(mod(dist,256.),mod(dist,256.*256.)/256.,mod(dist,256.*256.*256.)/256./256.))/255.;}
+-->
+x:8000
+y:8000
+save_image:final_dist.png
+sampler2D img:temp_dist.png
+
+shader_type canvas_item;
+
+uniform sampler2D img;
+
+const float n=4000.;
+
+void fragment(){	
+	float dist=n;
+
+	for(float x=1.;x<n;x++){
+		float u=x/n;
+		vec4 pixel=texture(img,vec2(u,UV.y))*255.;
+		
+		pixel.r=pixel.r+pixel.g*256.+pixel.b*256.*256.;
+
+		vec2 uv=vec2((UV.x-u)*16000.,pixel.r);
+		dist=min(dist,sqrt(uv.x*uv.x+uv.y*uv.y));}
+
+	COLOR.rgb=floor(vec3(mod(dist,256.),mod(dist,256.*256.)/256.,mod(dist,256.*256.*256.)/256./256.))/255.;}
