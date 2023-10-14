@@ -1,3 +1,4 @@
+TextureRect
 Node2D
 Label
 ColorRect
@@ -7,5 +8,4 @@ TextEdit
 HBoxContainer
 Button
 VBoxContainer
-TextureRect
 GridContainer

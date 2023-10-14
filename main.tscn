@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://duhhk823tlsl"]
+[gd_scene load_steps=17 format=3 uid="uid://duhhk823tlsl"]
 
 [ext_resource type="Script" path="res://code/cols.scale.gd" id="1_a8mmw"]
 [ext_resource type="Script" path="res://code/screen.scale.gd" id="1_kqbif"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://vjptp8piaqpn" path="res://code/imagerect.tres" id="3_hpadw"]
 [ext_resource type="Script" path="res://code/scripthighlight.gd" id="3_phq1v"]
 [ext_resource type="Script" path="res://code/load_script.gd" id="5_0h2bw"]
+[ext_resource type="Script" path="res://code/texture.scale.gd" id="5_eiiqj"]
 [ext_resource type="Material" uid="uid://dtnjm0tgpmgf7" path="res://code/shaderrect.tres" id="5_ll1yt"]
 [ext_resource type="Script" path="res://code/FPS.gd" id="7_jybdq"]
 [ext_resource type="Script" path="res://code/parse_parms.gd" id="7_spbgv"]
@@ -84,6 +85,10 @@ size_flags_stretch_ratio = 100.0
 [node name="spacer1" type="Control" parent="screen/cols/himage/vimage"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="texture" type="TextureRect" parent="screen/cols/himage/vimage"]
+layout_mode = 2
+script = ExtResource("5_eiiqj")
 
 [node name="imagerect" type="ColorRect" parent="screen/cols/himage/vimage"]
 material = ExtResource("3_hpadw")

@@ -26,7 +26,9 @@ func parse(parms):
 		'load':'.',
 		'save':'.',
 		'save_image':'image.png',
-		'binding':'1'}
+		'binding':'1',
+		'execute':'1',
+		'display':'-1'}
 	
 	for parm in default:
 		if parm in parms:pass
@@ -38,9 +40,12 @@ func parse(parms):
 	var crop_right  = float(parms['crop_right'])-float(parms['crop_left'])
 	var crop_top    = float(parms['crop_top'])
 	var crop_bottom = float(parms['crop_bottom'])
-	compute.binding = int(parms['binding'])
 	
-	print(int(parms['binding']))
+	compute.execute = int(parms['execute'])
+	compute.binding = int(parms['binding'])
+	compute.display = int(parms['display'])
+	
+	print(parms)
 	
 	viewport.set_size(Vector2(x,y))
 	shaderrect.set_size(Vector2(x,y))
