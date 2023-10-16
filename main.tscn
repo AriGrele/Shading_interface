@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://code/cols.scale.gd" id="1_a8mmw"]
 [ext_resource type="Script" path="res://code/screen.scale.gd" id="1_kqbif"]
-[ext_resource type="FontFile" uid="uid://bbyvcvft3iw1n" path="res://assets/AlegreyaSans-Regular.ttf" id="2_2pwtu"]
 [ext_resource type="Script" path="res://code/imagerect.scale.gd" id="2_4pohs"]
 [ext_resource type="Script" path="res://code/parse_script.gd" id="2_8lfqj"]
 [ext_resource type="Material" uid="uid://vjptp8piaqpn" path="res://code/imagerect.tres" id="3_hpadw"]
+[ext_resource type="FontFile" uid="uid://b5wrnudvxvgnq" path="res://assets/IBMPlexMono-Regular.ttf" id="3_m1whu"]
 [ext_resource type="Script" path="res://code/scripthighlight.gd" id="3_phq1v"]
 [ext_resource type="Script" path="res://code/load_script.gd" id="5_0h2bw"]
 [ext_resource type="Script" path="res://code/texture.scale.gd" id="5_eiiqj"]
@@ -20,13 +20,16 @@ content_margin_left = 5.0
 content_margin_top = 5.0
 content_margin_right = 5.0
 content_margin_bottom = 5.0
+bg_color = Color(0.639216, 0.6, 0.470588, 1)
 draw_center = false
 border_width_right = 1
-border_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="CodeHighlighter" id="CodeHighlighter_q0mbx"]
 number_color = Color(0.313726, 0.596078, 0.454902, 1)
+symbol_color = Color(1, 1, 1, 1)
 function_color = Color(0.0901961, 0.623529, 0.878431, 1)
+member_variable_color = Color(0.6, 0.6, 0.6, 1)
 
 [node name="main" type="Node2D"]
 
@@ -51,14 +54,15 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
-theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
-theme_override_colors/font_placeholder_color = Color(0.431373, 0.431373, 0.431373, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/current_line_color = Color(0, 0, 0, 1)
-theme_override_colors/caret_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("2_2pwtu")
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_selected_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_readonly_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/font_placeholder_color = Color(0.6, 0.6, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/selection_color = Color(0.4, 0.4, 0.4, 1)
+theme_override_colors/current_line_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_colors/caret_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_fonts/font = ExtResource("3_m1whu")
 theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_p7sun")
 placeholder_text = "Enter shading script"
@@ -96,6 +100,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 size_flags_stretch_ratio = 100.0
+color = Color(0, 0, 0, 1)
 script = ExtResource("2_4pohs")
 
 [node name="viewport" type="SubViewport" parent="screen/cols/himage/vimage/imagerect"]
@@ -106,6 +111,7 @@ size = Vector2i(2, 2)
 material = ExtResource("5_ll1yt")
 offset_right = 20.0
 offset_bottom = 20.0
+color = Color(0, 0, 0, 1)
 
 [node name="spacer3" type="Control" parent="screen/cols/himage/vimage"]
 layout_mode = 2
@@ -124,7 +130,8 @@ offset_left = -1.0
 offset_bottom = 23.0
 grow_horizontal = 0
 size_flags_vertical = 0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 script = ExtResource("7_jybdq")
 
 [node name="compute" type="Node2D" parent="."]

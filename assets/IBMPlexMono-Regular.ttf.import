@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bbyvcvft3iw1n"
-path="res://.godot/imported/AlegreyaSans-Regular.ttf-71fe39c301f32883f20ca985698974eb.fontdata"
+uid="uid://b5wrnudvxvgnq"
+path="res://.godot/imported/IBMPlexMono-Regular.ttf-c00876be8f79f75ef44455a9d44d049d.fontdata"
 
 [deps]
 
-source_file="res://assets/AlegreyaSans-Regular.ttf"
-dest_files=["res://.godot/imported/AlegreyaSans-Regular.ttf-71fe39c301f32883f20ca985698974eb.fontdata"]
+source_file="res://assets/IBMPlexMono-Regular.ttf"
+dest_files=["res://.godot/imported/IBMPlexMono-Regular.ttf-c00876be8f79f75ef44455a9d44d049d.fontdata"]
 
 [params]
 

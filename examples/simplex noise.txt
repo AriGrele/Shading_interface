@@ -78,11 +78,9 @@ vec4 octave(vec3 xyz, int octs, float p) {
 }
 	
 void fragment(){
-	float pix = 1.0;
-	float x = 3.0*pix;
-	float y = 2.0*pix;
-	vec2 xy = vec2(floor(UV.x*x)/x,floor(UV.y*y)/y);
-	
-	float p=(bi(UV,tex));
-	COLOR=texture(pal,vec2(p,.1)).rgb;
+	vec2 uv=UV*2.-1.;
+	vec3 ball=sphere(uv.x,uv.y,1.);
+
+	vec4 h=octave(rotate(ball,vec3(0.,TIME,0.)),5,2.)*.5+.5;
+	COLOR.rgb=h.xyz;
 	}

@@ -69,7 +69,7 @@ func _ready():
 		'#[compute]',
 		'#version 450']}
 		
-	var regions={'#808080':['//']}
+	var regions={'#808080':['//'],'#999999':[':']}
 		
 	for color in keywords:
 		for keyword in keywords[color]:

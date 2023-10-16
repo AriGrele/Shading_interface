@@ -69,7 +69,7 @@ func run_compute(compute_script):
 			fmt.width      = width
 			fmt.height     = height
 			fmt.usage_bits = RenderingDevice.TEXTURE_USAGE_CAN_UPDATE_BIT | RenderingDevice.TEXTURE_USAGE_SAMPLING_BIT
-			fmt.format     = RenderingDevice.DATA_FORMAT_R8G8B8_SRGB
+			fmt.format     = RenderingDevice.DATA_FORMAT_R8G8B8A8_SRGB
 
 			var read_data = PackedByteArray(img_pba)
 			#print('r: ',read_data)
@@ -160,7 +160,7 @@ func run_compute(compute_script):
 			dim=Vector2(dim[0]+dim[1]*256+dim[2]*256*256+dim[3]*256*256*256,dim[4]+dim[5]*256+dim[6]*256*256+dim[7]*256*256*256)
 			
 			print('dim: ',dim)
-			var image = Image.create_from_data(dim.x,dim.y,false,Image.FORMAT_RGB8,rd.buffer_get_data(buffers[display]))
+			var image = Image.create_from_data(dim.x,dim.y,false,Image.FORMAT_RGBA8,rd.buffer_get_data(buffers[display]))
 			var image_texture = ImageTexture.new()
 			image_texture.set_image(image)
 			texture.set_texture(image_texture)
