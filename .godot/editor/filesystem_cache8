@@ -1,30 +1,34 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1697478671
+::res://::1697760789
 export_presets.cfg::TextFile::-1::1696538929::0::1::::<><>::
-input.txt::TextFile::-1::1697478435::0::1::::<><>::
-main.tscn::PackedScene::252292182978973331::1697478671::0::1::::<><>::res://code/cols.scale.gd<>res://code/screen.scale.gd<>uid://bbyvcvft3iw1n::::res://assets/AlegreyaSans-Regular.ttf<>res://code/imagerect.scale.gd<>res://code/parse_script.gd<>uid://vjptp8piaqpn::::res://code/imagerect.tres<>res://code/scripthighlight.gd<>res://code/load_script.gd<>res://code/texture.scale.gd<>uid://dtnjm0tgpmgf7::::res://code/shaderrect.tres<>res://code/FPS.gd<>res://code/parse_parms.gd<>res://code/pan_zoom.gd<>res://code/compute.gd
-::res://assets/::1697478840
+fisheye.txt::TextFile::-1::1697759329::0::1::::<><>::
+image.png::CompressedTexture2D::283272057739678352::1697759273::1697759216::1::::<><>::
+input.txt::TextFile::-1::1697760691::0::1::::<><>::
+main.tscn::PackedScene::252292182978973331::1697760789::0::1::::<><>::res://code/cols.scale.gd<>res://code/screen.scale.gd<>res://code/imagerect.scale.gd<>res://code/parse_script.gd<>uid://vjptp8piaqpn::::res://code/imagerect.tres<>uid://b5wrnudvxvgnq::::res://assets/IBMPlexMono-Regular.ttf<>res://code/scripthighlight.gd<>res://code/load_script.gd<>res://code/texture.scale.gd<>uid://dtnjm0tgpmgf7::::res://code/shaderrect.tres<>res://code/FPS.gd<>res://code/parse_parms.gd<>res://code/pan_zoom.gd<>res://code/compute.gd
+step1.png::CompressedTexture2D::3414712095442687742::1697760796::1697760802::1::::<><>::
+step2.png::CompressedTexture2D::2426474551035416385::1697760796::1697760797::1::::<><>::
+::res://assets/::1697478843
 IBMPlexMono-Regular.ttf::FontFile::4538558763708309722::1697478821::1697478843::1::::<><>::
 splash.png::CompressedTexture2D::2555908941756422060::1696173392::1696173430::1::::<><>::
 splash.svg::CompressedTexture2D::2154878399191852238::1696173413::1696173430::1::::<><>::
-::res://code/::1697478671
+::res://code/::1697760789
 cols.scale.gd::GDScript::-1::1695336170::0::1::::<>HBoxContainer<>::
 compute.gd::GDScript::-1::1697339092::0::1::::<>Node2D<>::
 FPS.gd::GDScript::-1::1696356572::0::1::::<>Label<>::
 image.scale.gd::GDScript::-1::1695336416::0::1::::<>ColorRect<>::
 imagerect.gd::GDScript::-1::1695335807::0::1::::<>ColorRect<>::
-imagerect.gdshader::Shader::-1::1697478671::0::1::::<><>::
+imagerect.gdshader::Shader::-1::1697760789::0::1::::<><>::
 imagerect.scale.gd::GDScript::-1::1695342635::0::1::::<>ColorRect<>::
-imagerect.tres::ShaderMaterial::1493490640681946987::1697478455::0::1::::<><>::res://code/imagerect.gdshader
+imagerect.tres::ShaderMaterial::1493490640681946987::1697760743::0::1::::<><>::res://code/imagerect.gdshader
 load_script.gd::GDScript::-1::1696023154::0::1::::<>Node2D<>::
 pan_zoom.gd::GDScript::-1::1696174994::0::1::::<>Node2D<>::
 parse_parms.gd::GDScript::-1::1697215185::0::1::::<>Node2D<>::
 parse_script.gd::GDScript::-1::1696986846::0::1::::<>Node2D<>::
 screen.scale.gd::GDScript::-1::1696356572::0::1::::<>Control<>::
-scripthighlight.gd::GDScript::-1::1696356572::0::1::::<>TextEdit<>::
+scripthighlight.gd::GDScript::-1::1697479126::0::1::::<>TextEdit<>::
 shaderrect.tres::ShaderMaterial::8520256216194626354::1695678450::0::1::::<><>::
 texture.scale.gd::GDScript::-1::1697215742::0::1::::<>TextureRect<>::
 ::res://examples/::1696986846
 distance transform.txt::TextFile::-1::1696986846::0::1::::<><>::
-simplex noise.txt::TextFile::-1::1696175143::0::1::::<><>::
+simplex noise.txt::TextFile::-1::1697479356::0::1::::<><>::
 ::res://program/::1696986846

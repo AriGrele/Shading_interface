@@ -1,1 +1,36 @@
 mode:edit
+save_image:step1.png
+x:5000
+y:5000
+
+sampler2D tex:C:/Users/Ari/Desktop/misc/desktop.jpg
+float scale:.1
+float x:-.81
+float y:-0.21
+
+shader_type canvas_item;
+
+uniform sampler2D tex;
+uniform float scale;
+uniform float x;
+uniform float y;
+
+void fragment(){
+	
+	vec2 uv=UV*2.-1.;
+	uv=uv/scale+vec2(x,y);
+
+	float r=length(uv);
+	float a=atan(uv.y,uv.x);
+	uv.y=(a+PI)/2./PI;
+	uv.x=r;
+
+	vec2 back=uv;
+	a=back.y*2.*PI-PI;
+	r=back.x;
+	back.x=r*cos(a);
+	back.y=r*sin(a);
+	back=(back-vec2(x,y))*scale;
+	back=back*.5+.5;
+
+	COLOR=texture(tex,uv);}
